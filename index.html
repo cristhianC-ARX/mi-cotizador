@@ -7,7 +7,6 @@
 
 
 <style>
-
  
   th.mostrar-cuotas {
     background-color: black;
@@ -18,7 +17,7 @@ body {
   font-family: Arial, sans-serif;
   margin: 0; /* Elimina el margen por defecto del body */
   height: 100vh; /* Asegura que el body tenga altura completa de la ventana */
-  display: flex; /* Usa flexbox para centrar el contenido horizontalmente */
+  display: flex; /*  flexbox para centrar el contenido horizontalmente */
   justify-content: center; /* Centra el contenido horizontalmente */
   align-items: flex-start; /* Alinea el contenedor hacia el principio del eje vertical */
   background-color: #3c4f5e; /* Fondo */
@@ -39,11 +38,11 @@ body {
   overflow: hidden;
   background-position: top right;
   background-repeat: no-repeat;
-  background-size: 100px auto; /* Ajusta el tamaño de la imagen según tus preferencias */
+  background-size: 100px auto; /* Ajusta el tamaño de la imagen  */
 }
 	label {
     display: inline-block;
-    width: 200px; /* Ajusta el ancho según tus necesidades */
+    width: 200px; /* Ajusta el ancho*/
   }
 
     h2 {
@@ -290,7 +289,7 @@ body {
                 <label for="tipoCuota">Tipo de cuota:</label>
                 <select id="tipoCuota" onchange="updateText()">
                     <option value="Cuota Nivelada">Cuota Nivelada</option>
-                    <option value="Cuota de Intereses">Cuota de Intereses</option>
+                                        <option value="Cuota de Intereses (Esta disminuira conforme realice abonos a capital)">Cuota de Intereses</option>
                 </select>
             </div>
 			
@@ -309,6 +308,8 @@ body {
         <button type="button" class="btn-imprimir" onclick="imprimirCuotas()">Imprimir Cuotas</button>
         <button type="button" class="btn-limpiar" onclick="limpiarFormulario()">Limpiar</button>
 		
+		
+
 		<br>
 		
 
@@ -412,11 +413,17 @@ function updateText() {
     var nombreMes = new Date(anio, mes - 1).toLocaleDateString('es-ES', { month: 'long' });
 	var tipoCuota = document.getElementById('tipoCuota').value;
 
+ // Buscar el primer valor de intereses en la tabla, si existe
+        var tabla = document.querySelector('#tabla-container table tbody');
+        var primerInteres = tabla ? parseFloat(tabla.rows[0].cells[2].textContent.replace(/[Q,]/g, '')) : 0;
+		
+		 // Definir el monto a mostrar según el tipo de cuota seleccionado
+        var montoMostrar = tipoCuota === "Cuota de Intereses (Esta disminuira conforme realice abonos a capital)" ? primerInteres : cuota;
 
     document.getElementById('nameOverlay').textContent = nombre;
     document.getElementById('tipoCuotaOverlay').textContent = tipoCuota;
     document.getElementById('fechaOverlay').textContent = nombreMes + ' ' + anio;
-    document.getElementById('montoOverlay').textContent = 'Q' + cuota.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+          document.getElementById('montoOverlay').textContent = 'Q' + montoMostrar.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
 
 
     var pdfImage = document.querySelector('.pdf-image');
@@ -432,8 +439,6 @@ function updateText() {
         document.querySelector('.text-overlay5').style.left = '23%';
 
 }
-
-
 
         function obtenerMesYAnioSeleccionados() {
             var selectFecha = document.getElementById('fecha');
