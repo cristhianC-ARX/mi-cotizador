@@ -1,3 +1,5 @@
+<!-- Author: Cristhian Cuxum -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -15,17 +17,17 @@
   
 body {
   font-family: Arial, sans-serif;
-  margin: 0; /* Elimina el margen por defecto del body */
-  height: 100vh; /* Asegura que el body tenga altura completa de la ventana */
-  display: flex; /*  flexbox para centrar el contenido horizontalmente */
-  justify-content: center; /* Centra el contenido horizontalmente */
-  align-items: flex-start; /* Alinea el contenedor hacia el principio del eje vertical */
-  background-color: #3c4f5e; /* Fondo */
-  color: black; /* Texto negro */
-  padding-top: 20px; /* Ajusta el espacio superior para subir el contenedor */
+  margin: 0;
+  height: 100vh; 
+  display: flex; 
+  justify-content: center; 
+  align-items: flex-start; 
+  background-color: #3c4f5e;
+  color: black; 
+  padding-top: 20px; 
 }
     #resultado {
-        color: black; /* Texto negro en el resultado */
+        color: black; 
     }
 
 .container {
@@ -38,15 +40,15 @@ body {
   overflow: hidden;
   background-position: top right;
   background-repeat: no-repeat;
-  background-size: 100px auto; /* Ajusta el tamaño de la imagen  */
+  background-size: 100px auto; 
 }
 	label {
     display: inline-block;
-    width: 200px; /* Ajusta el ancho*/
+    width: 200px; 
   }
 
     h2 {
-	 text-align: center; /* Centra el texto del título */ 
+	 text-align: center;
         color: #3c4f5e;
         text-shadow: 1px 1px 1px #333;
     }
@@ -113,7 +115,7 @@ body {
       position: absolute;
       top: 20px;
       right: 20px;
-      display: none; /* Oculta la imagen en pantalla */
+      display: none;
     }
     .imagen-container {
       position: absolute;
@@ -171,8 +173,8 @@ body {
    @media print {
     body {
         background-color: white;
-        margin: 0; /* Elimina márgenes para asegurar más espacio para el contenido */
-        padding: 0; /* Elimina relleno adicional */
+        margin: 0; 
+        padding: 0;
     }
 
     table {
@@ -191,7 +193,7 @@ body {
         border: 1px solid #ddd;
         padding: 5px;
         text-align: left;
-        color: black; /* Texto negro */
+        color: black; 
     }
 
     th {
@@ -200,7 +202,7 @@ body {
     }
 
     .container {
-        padding: 10px; /* Reduce padding para maximizar el espacio en la hoja */
+        padding: 10px; 
     }
 
     .imagen-container {
@@ -209,11 +211,11 @@ body {
 
    .pdf-container {
         display: block;
-        text-align: center; /* Alinea el contenedor de la imagen al centro */
+        text-align: center; 
     }
 	
     .pdf-image {
-        margin: 0 auto; /* Centra la imagen */
+        margin: 0 auto;
         max-width: 100%;
         height: auto;
     }
@@ -245,7 +247,7 @@ body {
         margin: 13mm;
     }
 
-    /* Ocultar encabezado y pie de página solo al imprimir */
+    
     header, footer {
         display: none !important;
     }
@@ -254,9 +256,9 @@ body {
 
 @media print {
     .image-page {
-        page-break-before: always; /* Salto de página antes de la imagen */
+        page-break-before: always;
         
-        text-align: center;        /* Centra la imagen */
+        text-align: center;       
     }
 }
 
@@ -318,9 +320,9 @@ body {
         <div class="pdf-container" id="pdf-container">
             <img src="hollem.jpg" alt="Página 1 del PDF" class="pdf-image">
             <div id="nameOverlay" class="text-overlay"></div>
-            <div id="montoOverlay" class="text-overlay4"></div> <!-- Ahora muestra la cuota mensual -->
-            <div id="fechaOverlay" class="text-overlay3"></div> <!-- Elemento para la fecha -->
-			<div id="tipoCuotaOverlay" class="text-overlay5"></div> <!-- Elemento para el tipo de cuota -->
+            <div id="montoOverlay" class="text-overlay4"></div> 
+            <div id="fechaOverlay" class="text-overlay3"></div> 
+			<div id="tipoCuotaOverlay" class="text-overlay5"></div> 
         </div>
     </div>
 
@@ -413,11 +415,11 @@ function updateText() {
     var nombreMes = new Date(anio, mes - 1).toLocaleDateString('es-ES', { month: 'long' });
 	var tipoCuota = document.getElementById('tipoCuota').value;
 
- // Buscar el primer valor de intereses en la tabla, si existe
+ 
         var tabla = document.querySelector('#tabla-container table tbody');
         var primerInteres = tabla ? parseFloat(tabla.rows[0].cells[2].textContent.replace(/[Q,]/g, '')) : 0;
 		
-		 // Definir el monto a mostrar según el tipo de cuota seleccionado
+		
         var montoMostrar = tipoCuota === "Cuota de Intereses (Esta disminuira conforme realice abonos a capital)" ? primerInteres : cuota;
 
     document.getElementById('nameOverlay').textContent = nombre;
@@ -453,16 +455,16 @@ function updateText() {
         }
 
   function imprimirCuotas() {
-  // Oculta los elementos no deseados antes de imprimir
+  
   var botones = document.querySelectorAll('.btn-limpiar, .btn-mostrar, .btn-imprimir, .btn-carta');
   for (var i = 0; i < botones.length; i++) {
     botones[i].style.display = 'none';
   }
 
-  // Imprime la ventana
+
   window.print();
 
-  // Restaura la visibilidad de los botones después de imprimir
+
   for (var i = 0; i < botones.length; i++) {
     botones[i].style.display = 'block';
   }
