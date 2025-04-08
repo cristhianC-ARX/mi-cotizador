@@ -17,7 +17,7 @@
     color: white;
   }
   
-body {
+  body {
     font-family: Arial, sans-serif;
   margin: 0;
   height: 100vh; 
@@ -49,12 +49,12 @@ body {
     width: 200px; */
   }
 
-    h2 {
+   
+  h2 {
         text-align: center;
         color: #3c4f5e;
         text-shadow: 1px 1px 1px #333;
     }
-
     input, select {
         width: 250px;
         margin-bottom: 10px;
@@ -188,8 +188,8 @@ body {
     .flatpickr-day.selected:hover, 
     .flatpickr-day.startRange:hover, 
     .flatpickr-day.endRange:hover {
-        background: #3c4f5e;
-        border-color: #3c4f5e;
+        background: #ff8c00;
+        border-color: #ff8c00;
     }
     
     .flatpickr-months .flatpickr-month {
@@ -310,8 +310,7 @@ body {
             <div>
                 <label for="empresa">Seleccione Empresa:</label>
                 <select id="empresa" onchange="updateText()">
-                    <option value="hollem">Hollem</option>
-                    <option value="callem">Callem</option>
+                    <option value="coope">Coopexpress</option>
                 </select>
             </div>
             <div>
@@ -522,27 +521,29 @@ body {
     var pdfImage = document.querySelector('.pdf-image');
     if (!pdfImage) return;
 
-    if (empresa === 'hollem') {
-        pdfImage.src = 'https://live.staticflickr.com/65535/54187083593_fe5bc78aba_h.jpg';
-        document.querySelector('.text-overlay').style.top = '7.98%';
-        document.querySelector('.text-overlay').style.left = '16.5%';
-        document.querySelector('.text-overlay3').style.top = '26%';
-        document.querySelector('.text-overlay3').style.left = '26.90%';
-        document.querySelector('.text-overlay4').style.top = '22.99%';
-        document.querySelector('.text-overlay4').style.left = '23%';
-        document.querySelector('.text-overlay5').style.top = '24.50%';
-        document.querySelector('.text-overlay5').style.left = '23%';
-    } else if (empresa === 'callem') {
-        pdfImage.src = 'https://live.staticflickr.com/65535/54187297120_64a31852e6_h.jpg';
-        document.querySelector('.text-overlay').style.top = '8.1%'; 
-        document.querySelector('.text-overlay').style.left = '16%'; 
-        document.querySelector('.text-overlay3').style.top = '27.4%'; 
-        document.querySelector('.text-overlay3').style.left = '26.5%'; 
-        document.querySelector('.text-overlay4').style.top = '24.3%'; 
-        document.querySelector('.text-overlay4').style.left = '22.8%'; 
-        document.querySelector('.text-overlay5').style.top = '25.80%';
-        document.querySelector('.text-overlay5').style.left = '23%';
-    }
+    if (empresa === 'coope') {
+        pdfImage.src = 'https://live.staticflickr.com/65535/54439695656_51de3a2005_k.jpg';
+        // Actualizar posiciones de los overlays
+        if (document.querySelector('.text-overlay')) {
+                        document.querySelector('.text-overlay').style.top = '12%';
+                        document.querySelector('.text-overlay').style.left = '16%';
+                    }
+                    
+                    if (document.querySelector('.text-overlay3')) {
+                        document.querySelector('.text-overlay3').style.top = '30%';
+                        document.querySelector('.text-overlay3').style.left = '28.4%';
+                    }
+                    
+                    if (document.querySelector('.text-overlay4')) {
+                        document.querySelector('.text-overlay4').style.top = '26.99%';
+                        document.querySelector('.text-overlay4').style.left = '23%';
+                    }
+                    
+                    if (document.querySelector('.text-overlay5')) {
+                        document.querySelector('.text-overlay5').style.top = '28.60%';
+                        document.querySelector('.text-overlay5').style.left = '23%';
+                    }
+    } 
 }
 
         function toggleImage() {
@@ -565,4 +566,4 @@ body {
         }
     </script>
 </body>
-</html> 
+</html> d
