@@ -1,4 +1,4 @@
-<!-- Author: Cristhian Cuxum -->
+<!-- Autor: Cristhian Aguilar -->
 
 <!DOCTYPE html>
 <html lang="es">
@@ -6,17 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculadora de pagos</title>
-
+   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/flatpickr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/flatpickr/4.6.13/l10n/es.js"></script>
 
 <style>
- 
   th.mostrar-cuotas {
     background-color: black;
     color: white;
   }
   
 body {
-  font-family: Arial, sans-serif;
+    font-family: Arial, sans-serif;
   margin: 0;
   height: 100vh; 
   display: flex; 
@@ -24,7 +26,7 @@ body {
   align-items: flex-start; 
   background-color: #3c4f5e;
   color: black; 
-  padding-top: 20px; 
+  padding-top: 20px;
 }
     #resultado {
         color: black; 
@@ -40,15 +42,15 @@ body {
   overflow: hidden;
   background-position: top right;
   background-repeat: no-repeat;
-  background-size: 100px auto; 
+  background-size: 100px auto;
 }
 	label {
     display: inline-block;
-    width: 200px; 
+    width: 200px; */
   }
 
     h2 {
-	 text-align: center;
+        text-align: center;
         color: #3c4f5e;
         text-shadow: 1px 1px 1px #333;
     }
@@ -91,7 +93,6 @@ body {
         width: 100%;
         margin-top: 20px;
         border-collapse: collapse;
-		
 
     }
 
@@ -111,11 +112,11 @@ body {
         color: black;
     }
 	
-	    .imagen-container {
+    .imagen-container {
       position: absolute;
       top: 20px;
       right: 20px;
-      display: none;
+      display: none; 
     }
     .imagen-container {
       position: absolute;
@@ -161,7 +162,7 @@ body {
         font-weight: bold;
     }
 	
-	    .text-overlay5 {
+    .text-overlay5 {
         position: absolute;
         top: 23.99%;
         left: 24%;
@@ -170,11 +171,45 @@ body {
         font-weight: bold;
     }
 
+    .flatpickr-calendar {
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+    }
+    
+    .flatpickr-day.selected, 
+    .flatpickr-day.startRange, 
+    .flatpickr-day.endRange, 
+    .flatpickr-day.selected.inRange, 
+    .flatpickr-day.startRange.inRange, 
+    .flatpickr-day.endRange.inRange, 
+    .flatpickr-day.selected:focus, 
+    .flatpickr-day.startRange:focus, 
+    .flatpickr-day.endRange:focus, 
+    .flatpickr-day.selected:hover, 
+    .flatpickr-day.startRange:hover, 
+    .flatpickr-day.endRange:hover {
+        background: #3c4f5e;
+        border-color: #3c4f5e;
+    }
+    
+    .flatpickr-months .flatpickr-month {
+        background: #3c4f5e;
+    }
+    
+    .flatpickr-current-month, 
+    .flatpickr-weekdays, 
+    .flatpickr-monthDropdown-months, 
+    .flatpickr-weekday, 
+    .numInputWrapper span.arrowUp, 
+    .numInputWrapper span.arrowDown {
+        color: white !important;
+    }
+
    @media print {
     body {
         background-color: white;
         margin: 0; 
-        padding: 0;
+        padding: 0; 
     }
 
     table {
@@ -193,7 +228,7 @@ body {
         border: 1px solid #ddd;
         padding: 5px;
         text-align: left;
-        color: black; 
+        color: black;
     }
 
     th {
@@ -211,7 +246,7 @@ body {
 
    .pdf-container {
         display: block;
-        text-align: center; 
+        text-align: center;
     }
 	
     .pdf-image {
@@ -238,7 +273,7 @@ body {
         font-size: 12px;
     }
 	
-	    .text-overlay5 {
+    .text-overlay5 {
         top: 23.8%;
         left: 24%;
         font-size: 12px;
@@ -247,7 +282,7 @@ body {
         margin: 13mm;
     }
 
-    
+   
     header, footer {
         display: none !important;
     }
@@ -256,7 +291,7 @@ body {
 
 @media print {
     .image-page {
-        page-break-before: always;
+        page-break-before: always; 
         
         text-align: center;       
     }
@@ -268,12 +303,17 @@ body {
 
 </head>
 <body>
-
     <div class="container">
         <h2>CALCULADORA DE PAGOS</h2>
 
         <form>
-    
+            <div>
+                <label for="empresa">Seleccione Empresa:</label>
+                <select id="empresa" onchange="updateText()">
+                    <option value="hollem">Hollem</option>
+                    <option value="callem">Callem</option>
+                </select>
+            </div>
             <div>
                 <label for="nombre">Nombre del Cliente:</label>
                 <input type="text" id="nombre" placeholder="Ingrese el nombre del cliente" oninput="updateText()">
@@ -287,11 +327,11 @@ body {
                 <input type="number" id="tasa" placeholder="Ingrese la tasa de interés">
             </div>
 			
-			            <div>
+            <div>
                 <label for="tipoCuota">Tipo de cuota:</label>
                 <select id="tipoCuota" onchange="updateText()">
                     <option value="Cuota Nivelada">Cuota Nivelada</option>
-                                        <option value="Cuota de Intereses (Esta disminuira conforme realice abonos a capital)">Cuota de Intereses</option>
+                    <option value="Cuota de Intereses (Esta disminuira conforme realice abonos a capital)">Cuota de Intereses</option>
                 </select>
             </div>
 			
@@ -300,8 +340,8 @@ body {
                 <input type="number" id="plazo" placeholder="Ingrese el plazo del préstamo">
             </div>
             <div>
-                <label for="fecha">Seleccione Mes y Año:</label>
-                <select id="fecha" onchange="updateText()"></select>
+                <label for="fechaSelector">Seleccione Fecha:</label>
+                <input type="text" id="fechaSelector" placeholder="Seleccione una fecha" readonly>
             </div>
         </form>
 
@@ -310,8 +350,6 @@ body {
         <button type="button" class="btn-imprimir" onclick="imprimirCuotas()">Imprimir Cuotas</button>
         <button type="button" class="btn-limpiar" onclick="limpiarFormulario()">Limpiar</button>
 		
-		
-
 		<br>
 		
 
@@ -321,12 +359,46 @@ body {
             <img src="hollem.jpg" alt="Página 1 del PDF" class="pdf-image">
             <div id="nameOverlay" class="text-overlay"></div>
             <div id="montoOverlay" class="text-overlay4"></div> 
-            <div id="fechaOverlay" class="text-overlay3"></div> 
-			<div id="tipoCuotaOverlay" class="text-overlay5"></div> 
+            <div id="fechaOverlay" class="text-overlay3"></div>
+			<div id="tipoCuotaOverlay" class="text-overlay5"></div>
         </div>
     </div>
 
     <script>
+        var fechaSelector;
+        
+        document.addEventListener('DOMContentLoaded', function() {
+    fechaSelector = flatpickr("#fechaSelector", {
+        defaultDate: new Date(),
+        minDate: "today",
+        disableMobile: true,
+        onChange: function(selectedDates) {
+            if (selectedDates.length > 0) {
+                const fecha = selectedDates[0];
+                const dia = fecha.getDate();
+                const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+                const mes = meses[fecha.getMonth()];
+                const año = fecha.getFullYear();
+                
+                document.getElementById('fechaSelector').value = `${dia} de ${mes} de ${año}`;
+                
+                updateText();
+            }
+        }
+    });
+
+     const fechaInicial = fechaSelector.selectedDates[0];
+    if (fechaInicial) {
+        const dia = fechaInicial.getDate();
+        const meses = ['enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio', 'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'];
+        const mes = meses[fechaInicial.getMonth()];
+        const año = fechaInicial.getFullYear();
+        document.getElementById('fechaSelector').value = `${dia} de ${mes} de ${año}`;
+    }
+    
+    updateText();
+});
+
         function formatoMonto() {
             let monto = document.getElementById('monto').value.replace(/,/g, '');
             monto = parseFloat(monto.replace(/[$]/g, ''));
@@ -341,6 +413,7 @@ body {
             document.getElementById('resultado').innerHTML = '';
             document.getElementById('tabla-container').innerHTML = '';
             document.getElementById('pdf-container').style.display = 'none';
+            fechaSelector.setDate(new Date());
         }
 
         function calcularCuota() {
@@ -355,35 +428,42 @@ body {
             var monto = parseFloat(document.getElementById('monto').value.replace(/[,Q]/g, ''));
             var tasa = parseFloat(document.getElementById('tasa').value) / 100 / 12;
             var plazo = parseFloat(document.getElementById('plazo').value) * 12;
-            var { mes, anio } = obtenerMesYAnioSeleccionados();
-            var fecha = new Date(anio, mes - 1, 1);
+            var fecha = fechaSelector.selectedDates[0];
+            
             if (isNaN(cuota)) {
                 document.getElementById('resultado').innerHTML = 'Primero calcula la cuota mensual.';
                 return;
             }
+            
             var tablaContainer = document.getElementById('tabla-container');
             tablaContainer.innerHTML = '';
             var tabla = document.createElement('table');
             var tbody = document.createElement('tbody');
             var encabezados = ['Meses', 'Balance Inicial', 'Intereses', 'Capital', 'Cuota', 'Balance Final'];
             var encabezadoRow = document.createElement('tr');
+            
             encabezados.forEach(function (encabezado) {
                 var th = document.createElement('th');
                 th.textContent = encabezado;
                 encabezadoRow.appendChild(th);
             });
+            
             tabla.appendChild(encabezadoRow);
             var balanceInicial = monto;
+            
             for (var i = 0; i < plazo; i++) {
                 var fila = document.createElement('tr');
-                var nombreMes = fecha.toLocaleDateString('es-ES', { month: 'long' });
-                var year = fecha.getFullYear();
+                var nuevaFecha = new Date(fecha);
+                nuevaFecha.setMonth(fecha.getMonth() + i);
+                var nombreMes = nuevaFecha.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
                 var mes = document.createElement('td');
-                mes.textContent = 'Mes ' + (i + 1) + ': ' + nombreMes + ' ' + year;
+                mes.textContent = 'Mes ' + (i + 1) + ': ' + nombreMes;
                 fila.appendChild(mes);
+                
                 var intereses = balanceInicial * tasa;
                 var capital = cuota - intereses;
                 var balanceFinal = balanceInicial - capital;
+                
                 var celdas = [
                     'Q' + balanceInicial.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
                     'Q' + intereses.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
@@ -391,62 +471,79 @@ body {
                     'Q' + cuota.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'),
                     'Q' + balanceFinal.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')
                 ];
+                
                 celdas.forEach(function (valor) {
                     var td = document.createElement('td');
                     td.textContent = valor;
                     fila.appendChild(td);
                 });
+                
                 tbody.appendChild(fila);
                 balanceInicial = balanceFinal;
-                fecha.setMonth(fecha.getMonth() + 1);
             }
+            
             tabla.appendChild(tbody);
-            tablaContainer.appendChild(tabla);
-            document.getElementById('resultado').innerHTML = '';
-            document.getElementById('pdf-container').style.display = 'block';
-            updateText();
+    tablaContainer.appendChild(tabla);
+    document.getElementById('resultado').innerHTML = '';
+    document.getElementById('pdf-container').style.display = 'block';
+    
+    updateText();   
         }
 
-function updateText() {
+        function updateText() {
     var nombre = document.getElementById('nombre').value;
-
+    var empresa = document.getElementById('empresa').value;
     var cuota = calcularCuota();
-    var { mes, anio } = obtenerMesYAnioSeleccionados();
-    var nombreMes = new Date(anio, mes - 1).toLocaleDateString('es-ES', { month: 'long' });
-	var tipoCuota = document.getElementById('tipoCuota').value;
+    var fechaSeleccionada = fechaSelector ? fechaSelector.selectedDates[0] : new Date();
+    var fechaFormateada = fechaSeleccionada.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+    var tipoCuota = document.getElementById('tipoCuota').value;
+    
+    var tabla = document.querySelector('#tabla-container table tbody');
+    var primerInteres = 0;
+    if (tabla && tabla.rows.length > 0) {
+        primerInteres = parseFloat(tabla.rows[0].cells[2].textContent.replace(/[Q,]/g, ''));
+    }
+            
+    var montoMostrar = tipoCuota === "Cuota de Intereses (Esta disminuira conforme realice abonos a capital)" ? primerInteres : cuota;
 
- 
-        var tabla = document.querySelector('#tabla-container table tbody');
-        var primerInteres = tabla ? parseFloat(tabla.rows[0].cells[2].textContent.replace(/[Q,]/g, '')) : 0;
-		
-		
-        var montoMostrar = tipoCuota === "Cuota de Intereses (Esta disminuira conforme realice abonos a capital)" ? primerInteres : cuota;
-
-    document.getElementById('nameOverlay').textContent = nombre;
-    document.getElementById('tipoCuotaOverlay').textContent = tipoCuota;
-    document.getElementById('fechaOverlay').textContent = nombreMes + ' ' + anio;
-          document.getElementById('montoOverlay').textContent = 'Q' + montoMostrar.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
-
+    if (document.getElementById('nameOverlay')) {
+        document.getElementById('nameOverlay').textContent = nombre;
+    }
+    if (document.getElementById('tipoCuotaOverlay')) {
+        document.getElementById('tipoCuotaOverlay').textContent = tipoCuota;
+    }
+    if (document.getElementById('fechaOverlay')) {
+        document.getElementById('fechaOverlay').textContent = fechaFormateada;
+    }
+    if (document.getElementById('montoOverlay')) {
+        document.getElementById('montoOverlay').textContent = 'Q' + (isNaN(montoMostrar) ? '0.00' : montoMostrar.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'));
+    }
 
     var pdfImage = document.querySelector('.pdf-image');
+    if (!pdfImage) return;
 
-        pdfImage.src = 'https://live.staticflickr.com/65535/54100522154_fac3f5e56c_h.jpg';
-        document.querySelector('.text-overlay').style.top = '12%';
-        document.querySelector('.text-overlay').style.left = '16%';
-        document.querySelector('.text-overlay3').style.top = '30%';
-        document.querySelector('.text-overlay3').style.left = '26.4%';
-        document.querySelector('.text-overlay4').style.top = '26.99%';
+    if (empresa === 'hollem') {
+        pdfImage.src = 'https://live.staticflickr.com/65535/54187083593_fe5bc78aba_h.jpg';
+        document.querySelector('.text-overlay').style.top = '7.98%';
+        document.querySelector('.text-overlay').style.left = '16.5%';
+        document.querySelector('.text-overlay3').style.top = '26%';
+        document.querySelector('.text-overlay3').style.left = '26.90%';
+        document.querySelector('.text-overlay4').style.top = '22.99%';
         document.querySelector('.text-overlay4').style.left = '23%';
-        document.querySelector('.text-overlay5').style.top = '28.60%';
+        document.querySelector('.text-overlay5').style.top = '24.50%';
         document.querySelector('.text-overlay5').style.left = '23%';
-
+    } else if (empresa === 'callem') {
+        pdfImage.src = 'https://live.staticflickr.com/65535/54187297120_64a31852e6_h.jpg';
+        document.querySelector('.text-overlay').style.top = '8.1%'; 
+        document.querySelector('.text-overlay').style.left = '16%'; 
+        document.querySelector('.text-overlay3').style.top = '27.4%'; 
+        document.querySelector('.text-overlay3').style.left = '26.5%'; 
+        document.querySelector('.text-overlay4').style.top = '24.3%'; 
+        document.querySelector('.text-overlay4').style.left = '22.8%'; 
+        document.querySelector('.text-overlay5').style.top = '25.80%';
+        document.querySelector('.text-overlay5').style.left = '23%';
+    }
 }
-
-        function obtenerMesYAnioSeleccionados() {
-            var selectFecha = document.getElementById('fecha');
-            var fechaSeleccionada = selectFecha.value.split('-');
-            return { mes: parseInt(fechaSeleccionada[1]), anio: parseInt(fechaSeleccionada[0]) };
-        }
 
         function toggleImage() {
             var pdfContainer = document.getElementById('pdf-container');
@@ -454,40 +551,18 @@ function updateText() {
             updateText();
         }
 
-  function imprimirCuotas() {
-  
-  var botones = document.querySelectorAll('.btn-limpiar, .btn-mostrar, .btn-imprimir, .btn-carta');
-  for (var i = 0; i < botones.length; i++) {
-    botones[i].style.display = 'none';
-  }
+        function imprimirCuotas() {
+            var botones = document.querySelectorAll('.btn-limpiar, .btn-mostrar, .btn-imprimir, .btn-carta');
+            for (var i = 0; i < botones.length; i++) {
+                botones[i].style.display = 'none';
+            }
 
+            window.print();
 
-  window.print();
-
-
-  for (var i = 0; i < botones.length; i++) {
-    botones[i].style.display = 'block';
-  }
-}
-
-        function inicializarFechaSelector() {
-            var fechaActual = new Date();
-            var selectFecha = document.getElementById('fecha');
-            var mesActual = fechaActual.getMonth();
-            var anioActual = fechaActual.getFullYear();
-            for (var i = 0; i < 12; i++) {
-                var opcion = document.createElement('option');
-                var fecha = new Date(anioActual, mesActual + i, 1);
-                var nombreMes = fecha.toLocaleDateString('es-ES', { month: 'long' });
-                opcion.value = fecha.getFullYear() + '-' + String(fecha.getMonth() + 1).padStart(2, '0');
-                opcion.text = nombreMes + ' ' + fecha.getFullYear();
-                selectFecha.add(opcion);
+            for (var i = 0; i < botones.length; i++) {
+                botones[i].style.display = 'inline-block';
             }
         }
-
-        document.addEventListener('DOMContentLoaded', function () {
-            inicializarFechaSelector();
-        });
     </script>
 </body>
-</html>
+</html> 
