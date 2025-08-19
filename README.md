@@ -1,2 +1,2 @@
 # mi-cotizador
-cotizador
+Cotizador Coope
